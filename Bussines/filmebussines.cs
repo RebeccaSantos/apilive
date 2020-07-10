@@ -1,9 +1,13 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
+
+
 namespace apilive.Bussines
 {
     public class filmebussines
     {
-        Database.filmedatabase db=new Database.filmedatabase();
+        Database.filmedatabase db = new Database.filmedatabase();
         public Models.TbFilme ValidarInserir(Models.TbFilme tabela)
         {
                 if(tabela.NmFilme==string.Empty)
@@ -25,6 +29,16 @@ namespace apilive.Bussines
               db.Inserir(tabela);
 
               return tabela;
+        }
+
+        public List<Models.TbFilme> ConsultarPorNomeGenero (string nome, string genero)
+        {
+            if (string.IsNullOrEmpty(nome))
+                throw new ArgumentException("Nome é obrigatório.");
+            if (string.IsNullOrEmpty(genero))
+                throw new ArgumentException("Gênero é obrigatório.");
+
+            return db.ConsultarPorNomeGenero(nome, genero);
         }
     }
 }
